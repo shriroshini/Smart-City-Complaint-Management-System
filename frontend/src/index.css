@@ -1,0 +1,319 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #F5F2EB;
+  min-height: 100vh;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Container Styles */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Button Styles */
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Poppins', sans-serif;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Input Styles */
+input, textarea, select {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid #5B9A9A;
+  border-radius: 12px;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  background: #E8DFD0;
+  color: #3D3229;
+  transition: all 0.3s ease;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #5B9A9A;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: #D4888A;
+  box-shadow: 0 0 0 4px rgba(212, 136, 138, 0.15);
+}
+
+select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%235B9A9A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 18px;
+  padding-right: 45px;
+}
+
+select option {
+  background: #E8DFD0;
+  color: #3D3229;
+}
+
+/* Card Styles */
+.card {
+  background: #E8DFD0;
+  border: 1px solid #5B9A9A;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 4px 20px rgba(61, 50, 41, 0.08);
+  margin-bottom: 24px;
+  transition: all 0.4s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(61, 50, 41, 0.12);
+}
+
+/* Primary Button - Pink Accent */
+.btn-primary {
+  background: linear-gradient(135deg, #D4888A 0%, #C4777A 100%);
+  color: white;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 16px;
+  box-shadow: 0 4px 20px rgba(212, 136, 138, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #C4777A 0%, #B4666A 100%);
+  box-shadow: 0 8px 30px rgba(212, 136, 138, 0.45);
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background: #5B9A9A;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-weight: 600;
+  border: 2px solid #4A8A8A;
+}
+
+.btn-secondary:hover {
+  background: #4A8A8A;
+  border-color: #3A7A7A;
+  box-shadow: 0 4px 15px rgba(91, 154, 154, 0.3);
+}
+
+/* Success Button */
+.btn-success {
+  background: linear-gradient(135deg, #5B9A9A 0%, #4A8A8A 100%);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(91, 154, 154, 0.35);
+}
+
+.btn-success:hover {
+  box-shadow: 0 8px 30px rgba(91, 154, 154, 0.45);
+}
+
+/* Danger Button */
+.btn-danger {
+  background: linear-gradient(135deg, #D4888A 0%, #C4777A 100%);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(212, 136, 138, 0.35);
+}
+
+.btn-danger:hover {
+  box-shadow: 0 8px 30px rgba(212, 136, 138, 0.45);
+}
+
+/* Badge Styles */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-pending {
+  background: linear-gradient(135deg, #5B9A9A 0%, #4A8A8A 100%);
+  color: white;
+}
+
+.badge-in-progress {
+  background: linear-gradient(135deg, #D4888A 0%, #C4777A 100%);
+  color: white;
+}
+
+.badge-resolved {
+  background: linear-gradient(135deg, #5B9A9A 0%, #4A8A8A 100%);
+  color: white;
+}
+
+.badge-low {
+  background: #E8DFD0;
+  color: #3D3229;
+  border: 1px solid #5B9A9A;
+}
+
+.badge-medium {
+  background: linear-gradient(135deg, #5B9A9A 0%, #4A8A8A 100%);
+  color: white;
+}
+
+.badge-high {
+  background: linear-gradient(135deg, #D4888A 0%, #C4777A 100%);
+  color: white;
+}
+
+/* Loading Animation */
+.loading {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 18px;
+  color: #5B9A9A;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.loading::after {
+  content: '';
+  width: 40px;
+  height: 40px;
+  border: 3px solid #E8DFD0;
+  border-top-color: #D4888A;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #E8DFD0;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #5B9A9A 0%, #4A8A8A 100%);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #4A8A8A 0%, #3A7A7A 100%);
+}
+
+/* Selection Color */
+::selection {
+  background: rgba(212, 136, 138, 0.3);
+  color: #3D3229;
+}
+
+/* Link Styles */
+a {
+  color: #D4888A;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #C4777A;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+  
+  .card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .btn-primary, .btn-secondary, .btn-success, .btn-danger {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Utility Classes */
+.fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+.slide-in {
+  animation: slideIn 0.6s ease forwards;
+}
