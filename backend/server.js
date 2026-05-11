@@ -20,6 +20,26 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Health check
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 
+// One-time admin reset endpoint (safe - only creates/resets admin)
+app.get('/setup-admin', async (req, res) => {
+  try {
+    const { getDb, saveDb } = require('./config/database');
+    const bcrypt = require('bcryptjs');
+    const db = getDb();
+    const hashedPassword = await bcrypt.hash('admin123', 10);
+    // Delete existing admin and recreate fresh
+    db.run('DELETE FROM users WHERE email = ?', ['admin@smartcity.com']);
+    db.run(
+      'INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)',
+      ['Admin', 'admin@smartcity.com', hashedPassword, 'admin']
+    );
+    saveDb();
+    res.json({ message: '✅ Admin created. Email: admin@smartcity.com | Password: admin123' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/complaints', require('./routes/complaints'));
