@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
-const { initDb } = require('./config/database');
+const bcrypt = require('bcryptjs');
+const { initDb, getDb, saveDb } = require('./config/database');
 
 dotenv.config();
 
@@ -26,9 +27,28 @@ app.use('/api/admin', require('./routes/admin'));
 
 const PORT = process.env.PORT || 5001;
 
+// Auto-seed admin user if not exists
+const seedAdmin = async () => {
+  const db = getDb();
+  const stmt = db.prepare('SELECT * FROM users WHERE email = ?');
+  const existing = stmt.getAsObject(['admin@smartcity.com']);
+  if (!existing.id) {
+    const hashedPassword = await bcrypt.hash('admin123', 10);
+    db.run(
+      'INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)',
+      ['Admin', 'admin@smartcity.com', hashedPassword, 'admin']
+    );
+    saveDb();
+    console.log('✅ Admin user created: admin@smartcity.com / admin123');
+  } else {
+    console.log('✅ Admin user already exists');
+  }
+};
+
 // Initialize SQLite DB then start server
 initDb()
-  .then(() => {
+  .then(async () => {
+    await seedAdmin();
     const server = app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
     });
