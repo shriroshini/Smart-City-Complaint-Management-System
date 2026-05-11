@@ -18,23 +18,27 @@ app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Health check
-app.get('/health', (req, res) => res.json({ status: 'ok', version: '3.0' }));
+app.get('/health', (req, res) => res.json({ status: 'ok', version: '4.0' }));
 
-// One-time admin reset endpoint (safe - only creates/resets admin)
+// Setup admin - creates or fixes admin user role
 app.get('/setup-admin', async (req, res) => {
   try {
-    const { getDb, saveDb } = require('./config/database');
-    const bcrypt = require('bcryptjs');
     const db = getDb();
     const hashedPassword = await bcrypt.hash('admin123', 10);
-    // Delete existing admin and recreate fresh
-    db.run('DELETE FROM users WHERE email = ?', ['admin@smartcity.com']);
-    db.run(
-      'INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)',
-      ['Admin', 'admin@smartcity.com', hashedPassword, 'admin']
-    );
-    saveDb();
-    res.json({ message: '✅ Admin created. Email: admin@smartcity.com | Password: admin123' });
+    const existing = db.prepare('SELECT * FROM users WHERE email = ?').getAsObject(['admin@smartcity.com']);
+    if (existing.id) {
+      // Update role to admin
+      db.run('UPDATE users SET role = ? WHERE email = ?', ['admin', 'admin@smartcity.com']);
+      saveDb();
+      res.json({ message: '✅ Admin role updated. Email: admin@smartcity.com | Password: admin123' });
+    } else {
+      db.run(
+        'INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)',
+        ['Admin', 'admin@smartcity.com', hashedPassword, 'admin']
+      );
+      saveDb();
+      res.json({ message: '✅ Admin created. Email: admin@smartcity.com | Password: admin123' });
+    }
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
