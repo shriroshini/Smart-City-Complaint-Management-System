@@ -18,7 +18,7 @@ app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Health check
-app.get('/health', (req, res) => res.json({ status: 'ok' }));
+app.get('/health', (req, res) => res.json({ status: 'ok', version: '2.0' }));
 
 // One-time admin reset endpoint (safe - only creates/resets admin)
 app.get('/setup-admin', async (req, res) => {
